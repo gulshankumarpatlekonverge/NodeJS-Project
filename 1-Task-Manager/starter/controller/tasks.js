@@ -9,15 +9,15 @@
  
  const getTasksData = (req, res) =>{
     res.send("Get Single Task");
-}
+ }
 
-const updateTasksData = (req, res) =>{
+ const updateTasksData = (req, res) =>{
     res.send("Update Task");
-}
+ }
 
-const deleteTasksData = (req, res) =>{
+ const deleteTasksData = (req, res) =>{
     res.send("Delete Task");
-}
+ }
 
  module.exports = {
     getAllTasksData,
