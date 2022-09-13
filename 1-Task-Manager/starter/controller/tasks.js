@@ -1,8 +1,9 @@
 const tasksModel = require('../models/tasks')
 
 // routes functions 
- const getAllTasksData = (req, res) =>{
-    res.send("Get All Task");
+ const getAllTasksData = async(req, res) =>{
+    const getTask = await tasksModel.find({});
+    res.status(200).json({ status: true, data : getTask})
  }
 
  const createTasksData = async(req, res) =>{
@@ -17,8 +18,17 @@ const tasksModel = require('../models/tasks')
     }    
  }
  
- const getTasksData = (req, res) =>{
-    res.send("Get Single Task");
+ const getTasksData = async(req, res) =>{
+    try {
+        const {id: taskId} = req.params;
+        const getTaskById = await tasksModel.findOne({_id : taskId})
+        if(!getTaskById){
+            return res.status(404).json({status: false, Message: `No tasks with the ${taskId}`}) 
+        }
+        res.status(200).json({status: true, data: getTaskById})
+    } catch (error) {
+        res.status(500).json({status: false, Message: error})
+    }
  }
 
  const updateTasksData = (req, res) =>{
