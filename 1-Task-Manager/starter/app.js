@@ -1,3 +1,4 @@
+require('./db/connect-db')
 const express = require('express');
 const app = express();
 const taskRoutes = require('./routes/tasks');
