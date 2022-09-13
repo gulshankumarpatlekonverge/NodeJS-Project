@@ -1,10 +1,20 @@
+const tasksModel = require('../models/tasks')
+
 // routes functions 
  const getAllTasksData = (req, res) =>{
     res.send("Get All Task");
  }
 
- const createTasksData = (req, res) =>{
-    res.send("Create A Task");
+ const createTasksData = async(req, res) =>{
+    try {
+        const task = await tasksModel.create({
+            name: req.body.name,
+            completed : req.body.completed
+        }) 
+        res.status(200).json({ status: true, data : task})
+    } catch (error) {
+        res.status(500).json({status: false, Message: error})
+    }    
  }
  
  const getTasksData = (req, res) =>{
