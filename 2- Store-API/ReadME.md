@@ -9,3 +9,7 @@
 # Important Links
 
     express-async-errors : https://www.npmjs.com/package/express-async-errors
+
+    MongoDB Query Operator: https://www.mongodb.com/docs/manual/reference/operator/query/
+
+    
