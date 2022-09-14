@@ -1,11 +1,14 @@
+const productData = require('../models/product');
 
-const getAllProduct = (req, res) =>{
-    throw Error("testing error")
-    res.send("Welcome to All products.")
+const getAllStaticProduct = async (req, res) =>{
+    const products = await productData.find({});
+    // find({ name: 'vase table', featured: true})
+    res.status(200).json({ products, nbHits: products.length })
 }
 
-const getAllStaticProduct = (req, res) =>{
-    res.send("Welcome to All Static products.")
+const  getAllProduct = async (req, res) =>{
+    const products = await productData.find(req.query);
+    res.status(200).json({ products , nbHits: products.length })
 }
 
 module.exports ={
