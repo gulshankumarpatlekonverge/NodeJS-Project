@@ -1,13 +1,25 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
+require('express-async-errors');
 const { connectDB } = require('./db/db')
+const productRoutes = require('./routes/products');
+const notFound = require('./middleware/not-found');
+const errorHandlerMiddleware = require('./middleware/error-handler');
+
+app.use(express.json());
+app.use(express.static('./public'))
+app.use(errorHandlerMiddleware); 
 
 app.get('/', (req, res) => {
     res.send("Hello World");
 })
 
-const PORT = 3000;
+app.use('/api/v1/products', productRoutes);
+
+app.use(notFound);
+
+const PORT = process.env.PORT || 3000;
 
 const start = async() => {
     try{
