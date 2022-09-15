@@ -13,6 +13,10 @@ const authorizationMiddleware = async (req, res, next) => {
     try {
         const payload = jwt.verify(token, process.env.JWT_SECRET);
         const { id, username } = payload;
+
+        const user = userData.findById(payload.id).select('-password');
+        req.user;
+
         req.user = { userId: payload.userId, name: payload.name };
         next();
     } catch (error) {
