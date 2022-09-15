@@ -4,17 +4,16 @@ require('dotenv').config();
 require('express-async-errors');
 const { connectDB } = require('./db/db')
 
-// const notFound = require('./middleware/not-found');
-// const errorHandlerMiddleware = require('./middleware/error-handler');
+const notFound = require('./middleware/not-found');
+const errorHandlerMiddleware = require('./middleware/error-handler');
 
 app.use(express.json());
 app.use(express.static('./public'))
-// app.use(errorHandlerMiddleware); 
+app.use(errorHandlerMiddleware); 
 
 app.get('/', (req, res) => {
     res.send("Hello World");
 })
-
 
 app.use(notFound);
 
