@@ -3,6 +3,7 @@ const app = express();
 require('dotenv').config();
 require('express-async-errors');
 const { connectDB } = require('./db/db')
+const authenticateUser = require('./middleware/auth')
 
 const notFound = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
@@ -16,7 +17,7 @@ const jobsRoutes = require('./routes/jobs');
 
 // routes
 app.use('/api/v1/auth', authenticationRoutes)
-app.use('/api/v1/jobs', jobsRoutes);
+app.use('/api/v1/jobs', authenticateUser, jobsRoutes);
 app.get('/', (req, res) => {
     res.send("Hello World");
 })
