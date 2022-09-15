@@ -7,10 +7,11 @@ const bcrypt = require('bcryptjs');
 const registerController = async (req, res) => {
     const { name, email, password } = req.body;
 
-    if(!name || !email || !password){
-        throw new BadRequest('Please Provide Name, Emai, Password');
-    }
-    const user = await userData.create({...req.body})
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const tempUser = { name, email, password: hashedPassword};
+    const user = await userData.create({...tempUser})
     res.status(StatusCodes.CREATED).json({ user })
 }
 
