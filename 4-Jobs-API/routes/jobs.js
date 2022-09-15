@@ -9,10 +9,10 @@ const {
 } =require('../controller/jobs')
 
 router.get('/', getAllJobs);
-router.get('/:id', getAllJobs);
-router.post('/', getAllJobs);
-router.patch('/:id', getAllJobs);
-router.delete('/:id', getAllJobs);
+router.get('/:id', getJob);
+router.post('/', createJob);
+router.patch('/:id', updateJob);
+router.delete('/:id', deleteJob);
 
 
 module.exports = router

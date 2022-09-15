@@ -5,6 +5,9 @@
         MONGODB_USERNAME = <username>
         MONGODB_PASSWORD = <password>
         DATABASE_NAME = <databasename>
+        JWT_SECRET = <encrypted-key>
+        JWT_LIFETIME = 30d
 
 # Links
     JWT Token: https://jwt.io/introduction
+    All Key Generator(EncryptedKey): https://www.allkeysgenerator.com/
