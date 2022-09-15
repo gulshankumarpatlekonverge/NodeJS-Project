@@ -6,11 +6,13 @@ const {
     dashboardPageData
 } = require('../controller/main');
 
+const authorizationMiddleware = require('../middleware/auth');
+
 router.post('/login', loginPageData);
+
+router.get('/dashboard', authorizationMiddleware, dashboardPageData)
+
 router.post('/register', registrationPageData);
-router.get('/dashboard', dashboardPageData)
-
-
 
 module.exports = router;
 
