@@ -11,6 +11,12 @@ app.use(express.json());
 app.use(express.static('./public'))
 app.use(errorHandlerMiddleware); 
 
+const authenticationRoutes = require('./routes/auth');
+const jobsRoutes = require('./routes/jobs');
+
+// routes
+app.use('/api/v1/auth', authenticationRoutes)
+app.use('/api/v1/jobs', jobsRoutes);
 app.get('/', (req, res) => {
     res.send("Hello World");
 })
