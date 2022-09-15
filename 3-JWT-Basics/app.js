@@ -3,7 +3,7 @@ const app = express();
 require('dotenv').config();
 require('express-async-errors');
 const { connectDB } = require('./db/db')
-
+const mainRoutes = require('./routes/main');
 const notFound = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
@@ -15,6 +15,7 @@ app.get('/', (req, res) => {
     res.send("Hello World");
 })
 
+app.use('/api/v1', mainRoutes);
 app.use(notFound);
 
 const PORT = process.env.PORT || 5000;
