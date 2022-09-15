@@ -42,9 +42,11 @@ const jobsRoutes = require('./routes/jobs');
 // routes
 app.use('/api/v1/auth', authenticationRoutes)
 app.use('/api/v1/jobs', authenticateUser, jobsRoutes);
+
 app.get('/', (req, res) => {
-    res.send("Hello World");
-})
+    res.send('<h1>Jobs API</h1><a href="/api-docs">Documentation</a>');
+  });
+  app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use(notFound);
 
