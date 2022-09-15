@@ -5,6 +5,7 @@ info:
   version: '1.0'
 servers:
   - url: https://jobs-api-06.herokuapp.com/api/v1
+    url: localhost:3000/api/v1
     variables: {}
 paths:
   /auth/register:
