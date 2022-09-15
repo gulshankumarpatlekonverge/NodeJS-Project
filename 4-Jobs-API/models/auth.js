@@ -1,5 +1,9 @@
 const { string } = require('joi');
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const { JsonWebTokenError } = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -19,5 +23,17 @@ const UserSchema = new mongoose.Schema({
         required: [true, 'Please Provide Password.']
     }
 })
+
+
+UserSchema.pre('save', async function(next){
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+    // in mongoose 5.x and later you can remove next
+})
+
+UserSchema.methods.createJWT = function () {
+    return jwt.sign({userId: this._id, name: this.name}, 'jwtSecret', {expiresIn: '30d'});
+}
 
 module.exports = mongoose.model('User', UserSchema)
