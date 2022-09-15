@@ -18,8 +18,25 @@ const loginPageData = (req, res) => {
 
 const dashboardPageData = (req, res) => {
     console.log(req.headers);
-    const randomNumber = Math.floor(Math.random() * 100);
-    res.status(200).json({msg: `Hello, Gulshan`, secret: `Here is your authorized data, your number is ${randomNumber}`});
+    const authHeaders = req.headers.authorization;
+
+    if(!authHeaders || !authHeaders.startsWith('Bearer ')){
+        throw new CustomAPIError({msg: 'No JWT Token Provided'}, 401)
+    }
+
+    const token = authHeaders.split(' ')[1];
+    console.log(token);
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        console.log(decoded)
+        const randomNumber = Math.floor(Math.random() * 100);
+
+        res.status(200).json({msg: `Hello, ${decoded.username}`, secret: `Here is your authorized data, your number is ${randomNumber}`});
+    } catch (error) {
+        throw new CustomAPIError('Not authorized to access this route', 401);
+    }
+
 }
  
 const registrationPageData = (req, res) => {
